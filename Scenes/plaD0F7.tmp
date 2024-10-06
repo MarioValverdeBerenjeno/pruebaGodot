@@ -147,7 +147,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_ye17a")
 }],
 "loop": true,
-"name": &"dash",
+"name": &"dodge",
 "speed": 10.0
 }, {
 "frames": [{
@@ -240,18 +240,9 @@ script = ExtResource("1_nofhy")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_n7sg1")
-animation = &"dash"
+animation = &"dodge"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_lxsxy")
-
-[node name="dash_timer" type="Timer" parent="."]
-wait_time = 0.2
-
-[node name="can_dash_timer" type="Timer" parent="."]
-wait_time = 0.7
-
-[connection signal="timeout" from="dash_timer" to="." method="_on_dash_time_timeout"]
-[connection signal="timeout" from="can_dash_timer" to="." method="_on_can_dash_timer_timeout"]
