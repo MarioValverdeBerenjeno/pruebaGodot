@@ -295,14 +295,23 @@ position = Vector2(74, 8)
 [node name="Coin3" parent="Coins" instance=ExtResource("5_0c68m")]
 position = Vector2(121, 22)
 
-[node name="Coin" parent="." instance=ExtResource("5_0c68m")]
+[node name="Coin4" parent="Coins" instance=ExtResource("5_0c68m")]
+position = Vector2(729, -25)
+
+[node name="Coin5" parent="Coins" instance=ExtResource("5_0c68m")]
+position = Vector2(766, -41)
+
+[node name="Coin6" parent="Coins" instance=ExtResource("5_0c68m")]
 position = Vector2(316, 9)
 
-[node name="Coin2" parent="." instance=ExtResource("5_0c68m")]
+[node name="Coin7" parent="Coins" instance=ExtResource("5_0c68m")]
 position = Vector2(380, 8)
 
-[node name="Coin3" parent="." instance=ExtResource("5_0c68m")]
+[node name="Coin8" parent="Coins" instance=ExtResource("5_0c68m")]
 position = Vector2(350, -8)
+
+[node name="Coin9" parent="Coins" instance=ExtResource("5_0c68m")]
+position = Vector2(808, -24)
 
 [node name="Slime" parent="." instance=ExtResource("7_n2nur")]
 position = Vector2(745, -16)
