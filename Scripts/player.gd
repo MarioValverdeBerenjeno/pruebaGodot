@@ -10,11 +10,15 @@ var can_dash = true
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var bala = preload("res://Scenes/bala.tscn")
+var balaIns
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("move_left", "move_right")
+	
+	disparar()
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -57,6 +61,13 @@ func _physics_process(delta: float) -> void:
 func _on_dash_time_timeout() -> void:
 	dashing = false
 
-
 func _on_can_dash_timer_timeout() -> void:
 	can_dash = true
+
+func disparar():
+	if Input.is_action_just_pressed("disparar"):
+		balaIns = bala.instantiate()
+		get_parent().add_child(balaIns)
+		balaIns.position = self.position
+		balaIns.apply_impulse(Vector2(0,0), Vector2(1000,0))
+		
