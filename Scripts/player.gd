@@ -64,10 +64,16 @@ func _on_dash_time_timeout() -> void:
 func _on_can_dash_timer_timeout() -> void:
 	can_dash = true
 
-func disparar():
+func disparar() -> void:
 	if Input.is_action_just_pressed("disparar"):
 		balaIns = bala.instantiate()
 		get_parent().add_child(balaIns)
-		balaIns.position = self.position
-		balaIns.apply_impulse(Vector2(0,0), Vector2(1000,0))
+		if !animated_sprite.flip_h:		
+			balaIns.position.x = self.position.x + 10
+			balaIns.position.y = self.position.y -10
+			balaIns.apply_impulse(Vector2(200,-300), Vector2(0,0))
+		else:
+			balaIns.position.x = self.position.x - 10
+			balaIns.position.y = self.position.y -10
+			balaIns.apply_impulse(Vector2(-200,-300), Vector2(0,0))
 		
