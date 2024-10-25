@@ -6,6 +6,7 @@ const JUMP_VELOCITY = -300.0
 const DASH_VELOCITY = 400.0
 var dashing = false
 var can_dash = true
+var can_shoot = true
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -64,8 +65,13 @@ func _on_dash_time_timeout() -> void:
 func _on_can_dash_timer_timeout() -> void:
 	can_dash = true
 
+func _on_cd_bullet_timeout():
+	can_shoot = true
+
 func disparar() -> void:
-	if Input.is_action_just_pressed("disparar"):
+	if Input.is_action_just_pressed("disparar") && can_shoot:
+		can_shoot = false
+		$cd_bullet.start()
 		balaIns = bala.instantiate()
 		get_parent().add_child(balaIns)
 		if !animated_sprite.flip_h:		
@@ -76,4 +82,4 @@ func disparar() -> void:
 			balaIns.position.x = self.position.x - 10
 			balaIns.position.y = self.position.y -10
 			balaIns.apply_impulse(Vector2(-200,-300), Vector2(0,0))
-		
+
