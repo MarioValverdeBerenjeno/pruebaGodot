@@ -9,7 +9,12 @@ var can_dash = true
 var can_shoot = true
 var can_shoot2 = true
 
+var player_health = Global.player_health
+
 @onready var collider = $CollisionShape2D
+@onready var timer: Timer = $DeathTimer
+@onready var labelNode: Label = $"../Score/UI/Base/Vida"
+@onready var labelNodeScore: Label = $"../Score/UI/Base/Label"
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -19,6 +24,11 @@ var balaIns
 
 @onready var bala2 = preload("res://Scenes/bala2.tscn")
 var balaIns2
+
+func _ready() -> void:
+	labelNode.text = "Health: " + str(Global.player_health)
+	player_health = Global.player_health
+	labelNodeScore.text = "Score: " + str(Global.player_score)
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
@@ -101,3 +111,18 @@ func disparar2() -> void:
 		get_parent().add_child(balaIns2)
 		balaIns2.body_position = animated_sprite.flip_h
 		balaIns2.global_position = collider.global_position
+
+func recibirDaño(daño: int):
+	player_health -= daño
+	Global.player_health = player_health
+	labelNode.text = "Health: " + str(Global.player_health)
+	if(player_health <= 0):
+		Engine.time_scale = 0.5
+		get_node("CollisionShape2D").queue_free()
+		timer.start()
+
+func _on_death_timer_timeout() -> void:
+	Engine.time_scale = 1.0
+	get_tree().reload_current_scene()
+	Global.player_health = 100
+	Global.player_score = 0

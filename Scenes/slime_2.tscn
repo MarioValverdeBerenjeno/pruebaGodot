@@ -1,0 +1,78 @@
+[gd_scene load_steps=11 format=3 uid="uid://kav6vck8trn0"]
+
+[ext_resource type="Texture2D" uid="uid://cbg2ixn8p5a6t" path="res://Assets/sprites/slime_purple.png" id="1_frsgt"]
+[ext_resource type="Script" path="res://Scripts/slime.gd" id="1_pr4mq"]
+[ext_resource type="PackedScene" uid="uid://dqxecjcgdrrpk" path="res://Scenes/kill_zone.tscn" id="2_rir7b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_culva"]
+atlas = ExtResource("1_frsgt")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqg6u"]
+atlas = ExtResource("1_frsgt")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_agl6r"]
+atlas = ExtResource("1_frsgt")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4kkn"]
+atlas = ExtResource("1_frsgt")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ienh3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_culva")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqg6u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_agl6r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e4kkn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hbcyd"]
+size = Vector2(10, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_frgol"]
+size = Vector2(12, 10.4348)
+
+[node name="slime2" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 4
+collision_mask = 9
+script = ExtResource("1_pr4mq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -11.5)
+scale = Vector2(1, 0.958333)
+sprite_frames = SubResource("SpriteFrames_ienh3")
+autoplay = "default"
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_hbcyd")
+
+[node name="KillZone" parent="." instance=ExtResource("2_rir7b")]
+position = Vector2(0, -11.5)
+scale = Vector2(1, 0.958333)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone" groups=["enemy"]]
+position = Vector2(0, 5.73913)
+shape = SubResource("RectangleShape2D_frgol")
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(0, -6)
+target_position = Vector2(9, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(0, -6)
+target_position = Vector2(-9, 0)

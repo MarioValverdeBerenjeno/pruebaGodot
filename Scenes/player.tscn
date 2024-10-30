@@ -260,7 +260,11 @@ wait_time = 0.8
 [node name="cd_bullet2" type="Timer" parent="."]
 wait_time = 0.8
 
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 0.6
+
 [connection signal="timeout" from="dash_timer" to="." method="_on_dash_time_timeout"]
 [connection signal="timeout" from="can_dash_timer" to="." method="_on_can_dash_timer_timeout"]
 [connection signal="timeout" from="cd_bullet" to="." method="_on_cd_bullet_timeout"]
 [connection signal="timeout" from="cd_bullet2" to="." method="_on_cd_bullet_2_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
