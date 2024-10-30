@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfd20647vkx1x"]
+[gd_scene load_steps=11 format=3 uid="uid://dfd20647vkx1x"]
 
 [ext_resource type="Texture2D" uid="uid://b553kpfejibuy" path="res://Assets/sprites/bala2sheet.png" id="1_qyaam"]
+[ext_resource type="Script" path="res://Scripts/bala2.gd" id="1_rdqtb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u5dkg"]
 atlas = ExtResource("1_qyaam")
@@ -46,20 +47,45 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_nxnej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jyjlo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e7hyq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_atj6s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gchaf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u5dkg")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 15.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2xma2"]
 radius = 4.0
 
-[node name="Area2D" type="Area2D"]
+[node name="bala2" type="Area2D" groups=["bala"]]
+collision_layer = 8
+collision_mask = 5
+script = ExtResource("1_rdqtb")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 3)
 sprite_frames = SubResource("SpriteFrames_4jmtb")
+autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_2xma2")
+
+[node name="DestroyTimer" type="Timer" parent="."]
+wait_time = 4.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="DestroyTimer" to="." method="_on_destroy_timer_timeout"]

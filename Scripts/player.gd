@@ -9,13 +9,15 @@ var can_dash = true
 var can_shoot = true
 var can_shoot2 = true
 
+@onready var collider = $CollisionShape2D
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var bala = preload("res://Scenes/bala.tscn")
 var balaIns
 
-@onready var bala2 = preload("res://Scenes/bala.tscn")
+@onready var bala2 = preload("res://Scenes/bala2.tscn")
 var balaIns2
 
 func _physics_process(delta: float) -> void:
@@ -73,6 +75,9 @@ func _on_can_dash_timer_timeout() -> void:
 func _on_cd_bullet_timeout():
 	can_shoot = true
 
+func _on_cd_bullet_2_timeout():
+	can_shoot2 = true
+
 func disparar() -> void:
 	if Input.is_action_just_pressed("disparar") && can_shoot:
 		can_shoot = false
@@ -94,11 +99,5 @@ func disparar2() -> void:
 		$cd_bullet2.start()
 		balaIns2 = bala2.instantiate()
 		get_parent().add_child(balaIns2)
-		if !animated_sprite.flip_h:		
-			balaIns2.position.x = self.position.x + 10
-			balaIns2.position.y = self.position.y -10
-			#balaIns2.apply_impulse(Vector2(200,-300), Vector2(0,0))
-		else:
-			balaIns2.position.x = self.position.x - 10
-			balaIns2.position.y = self.position.y -10
-			#balaIns2.apply_impulse(Vector2(-200,-300), Vector2(0,0))
+		balaIns2.body_position = animated_sprite.flip_h
+		balaIns2.global_position = collider.global_position

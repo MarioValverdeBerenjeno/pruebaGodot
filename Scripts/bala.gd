@@ -1,7 +1,7 @@
 extends RigidBody2D
 
-func _on_body_entered(body):
-	print("AY")
-	if body.is_in_group("enemy"):
-		print("choque")
-		body.queue_free()
+func _ready():
+	$DestroyTimer.start()
+
+func _on_destroy_timer_timeout():
+	self.queue_free()
