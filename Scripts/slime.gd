@@ -16,7 +16,5 @@ func _process(delta):
 		animated_sprite.flip_h = false
 	position.x += direction * speed * delta
 
-
-
 func _on_body_entered(body):
 	print(body.name)

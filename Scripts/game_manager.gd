@@ -7,8 +7,8 @@ var score_required = 9
 func add_point():
 	score += 1
 	labelNode.text = "Score: " + str(score)
-	if score == score_required:
-		win()
+	#if score == score_required:
+		#win()
 
 func win():
 	get_tree().reload_current_scene()

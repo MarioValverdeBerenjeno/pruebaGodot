@@ -7,6 +7,7 @@ const DASH_VELOCITY = 400.0
 var dashing = false
 var can_dash = true
 var can_shoot = true
+var can_shoot2 = true
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -14,12 +15,16 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var bala = preload("res://Scenes/bala.tscn")
 var balaIns
 
+@onready var bala2 = preload("res://Scenes/bala.tscn")
+var balaIns2
+
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("move_left", "move_right")
 	
 	disparar()
+	disparar2()
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -83,3 +88,17 @@ func disparar() -> void:
 			balaIns.position.y = self.position.y -10
 			balaIns.apply_impulse(Vector2(-200,-300), Vector2(0,0))
 
+func disparar2() -> void:
+	if Input.is_action_just_pressed("disparar2") && can_shoot2:
+		can_shoot2 = false
+		$cd_bullet2.start()
+		balaIns2 = bala2.instantiate()
+		get_parent().add_child(balaIns2)
+		if !animated_sprite.flip_h:		
+			balaIns2.position.x = self.position.x + 10
+			balaIns2.position.y = self.position.y -10
+			#balaIns2.apply_impulse(Vector2(200,-300), Vector2(0,0))
+		else:
+			balaIns2.position.x = self.position.x - 10
+			balaIns2.position.y = self.position.y -10
+			#balaIns2.apply_impulse(Vector2(-200,-300), Vector2(0,0))
