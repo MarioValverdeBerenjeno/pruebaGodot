@@ -1,13 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://dm8esqik57hhi"]
+[gd_scene load_steps=9 format=3 uid="uid://dm8esqik57hhi"]
 
 [ext_resource type="TileSet" uid="uid://d14w46s578rse" path="res://Assets/tileSetWorld.tres" id="1_g0xya"]
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_ifbc4"]
 [ext_resource type="PackedScene" uid="uid://d3v4dlyirvvdf" path="res://Scenes/player.tscn" id="2_hbq7j"]
 [ext_resource type="PackedScene" uid="uid://kav6vck8trn0" path="res://Scenes/slime_2.tscn" id="3_ypih5"]
 [ext_resource type="PackedScene" uid="uid://dqxecjcgdrrpk" path="res://Scenes/kill_zone.tscn" id="5_xhllm"]
+[ext_resource type="Script" path="res://Scripts/metaFinal.gd" id="6_aq7by"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4h6dh"]
 distance = -151.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_08tke"]
+size = Vector2(145, 172)
 
 [node name="game2" type="Node2D"]
 
@@ -92,3 +96,15 @@ position = Vector2(607, 69)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
 shape = SubResource("WorldBoundaryShape2D_4h6dh")
+
+[node name="Meta" type="Area2D" parent="."]
+position = Vector2(843, -40)
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("6_aq7by")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Meta"]
+position = Vector2(105.5, 24)
+shape = SubResource("RectangleShape2D_08tke")
+
+[connection signal="body_entered" from="Meta" to="Meta" method="_on_body_entered"]
