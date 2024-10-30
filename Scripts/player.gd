@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
@@ -57,13 +58,13 @@ func _physics_process(delta: float) -> void:
 	elif direction < 0:
 		animated_sprite.flip_h = true
 		
-	if is_on_floor():
-		if direction == 0 and !dashing:
-			animated_sprite.play("idle")
-		else:
-			animated_sprite.play("run")
-	else:
-		animated_sprite.play("jump")
+	#if is_on_floor(): HECHO CON MÁQUINA DE ESTADOS
+		#if direction == 0 and !dashing:
+		#	animated_sprite.play("idle")
+		#else:
+			#animated_sprite.play("run")
+	#else:
+		#animated_sprite.play("jump")
 	
 	if direction:
 		if dashing:

@@ -1,7 +1,11 @@
-[gd_scene load_steps=34 format=3 uid="uid://d3v4dlyirvvdf"]
+[gd_scene load_steps=38 format=3 uid="uid://d3v4dlyirvvdf"]
 
 [ext_resource type="Texture2D" uid="uid://c7j3eyckgjhjq" path="res://Assets/sprites/knight.png" id="1_fxmxo"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_nofhy"]
+[ext_resource type="Script" path="res://Scripts/state_machine.gd" id="2_4juho"]
+[ext_resource type="Script" path="res://Scripts/player_states/player_state_idle.gd" id="3_11pph"]
+[ext_resource type="Script" path="res://Scripts/player_states/player_state_run.gd" id="4_kyc8b"]
+[ext_resource type="Script" path="res://Scripts/player_states/player_state_jump.gd" id="5_brrvm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n8w65"]
 atlas = ExtResource("1_fxmxo")
@@ -237,6 +241,19 @@ z_index = 5
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_nofhy")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_4juho")
+initial_state = NodePath("PlayerStateIdle")
+
+[node name="PlayerStateIdle" type="Node" parent="StateMachine"]
+script = ExtResource("3_11pph")
+
+[node name="PlayerStateRun" type="Node" parent="StateMachine"]
+script = ExtResource("4_kyc8b")
+
+[node name="PlayerStateJump" type="Node" parent="StateMachine"]
+script = ExtResource("5_brrvm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
